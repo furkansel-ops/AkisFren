@@ -26,7 +26,7 @@ jobs:
             echo "Android sources are already expanded."
             exit 0
           fi
-          base64 --decode .bootstrap/android.tar.xz.b64 | tar -xJf -
+          base64 --decode .bootstrap/android.tar.xz.b64 | tar --exclude='.github/workflows/android-apk.yml' -xJf -
           rm -rf .bootstrap
           test -f app/build.gradle
           test -f app/src/main/AndroidManifest.xml
