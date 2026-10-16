@@ -1,0 +1,11 @@
+<resources>
+    <style name="Theme.AkisFren" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">#08101C</item>
+        <item name="android:navigationBarColor">#08101C</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:colorAccent">#2AD5BF</item>
+        <item name="android:windowBackground">#08101C</item>
+    </style>
+</resources>
