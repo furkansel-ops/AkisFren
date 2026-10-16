@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">AkışFren</string>
-    <string name="service_description">Seçtiğiniz video akışlarını tespit etmek için ekrandaki erişilebilirlik öğelerini cihaz içinde inceler, limit dolduğunda ana ekrana döner. Ekran yazıları kaydedilmez veya gönderilmez. Bu erişimi Ayarlar'dan istediğiniz zaman kapatabilirsiniz.</string>
+    <string name="service_description">Seçtiğiniz video akışlarını tespit etmek için ekrandaki erişilebilirlik öğelerini cihaz içinde inceler, limit dolduğunda ana ekrana döner. Ekran yazıları kaydedilmez veya gönderilmez. Bu erişimi Ayarlar\'dan istediğiniz zaman kapatabilirsiniz.</string>
 </resources>
