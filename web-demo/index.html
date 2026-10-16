@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#08131d">
+<title>AkışFren v0.4 | Akışın kontrolü sende</title>
+<style>
+:root{color-scheme:dark;--bg:#08131d;--panel:#152837;--panel2:#1b3241;--mint:#4de6cb;--blue:#3e9fea;--orange:#ffb495;--border:#2c4958;--text:#eff8f8;--muted:#a5bac3}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse 450px 380px at 52% -100px,#12464c 0%,transparent 76%),var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid #92ffdd;outline-offset:3px}main{width:min(100%,560px);padding:25px 18px 40px;margin:auto}.overline{font-size:10px;letter-spacing:.2em;color:#70e8d3;font-weight:800;display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;background:var(--mint);border-radius:50%;box-shadow:0 0 0 4px #4de6cb25}.header{margin:10px 0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}.header h1{margin:0;font-size:39px;letter-spacing:-1.8px;line-height:1.1;font-weight:850}.header h1 span{color:var(--mint)}.header p{margin:6px 0 0;color:var(--muted);font-size:13px}.logo{width:53px;height:53px;border-radius:17px;border:1px solid #23645f;background:linear-gradient(145deg,#207a72,#083438);display:grid;place-items:center;font-size:28px;font-weight:900;color:#c8fff0;box-shadow:0 10px 34px #062e2c}
+.preview-notice{padding:11px 13px;border:1px solid #355364;border-radius:12px;background:#132330;color:#bad2da;font-size:11px;line-height:1.55;margin:16px 0}.hero{position:relative;overflow:hidden;border:1px solid #276863;border-radius:24px;padding:19px;background:linear-gradient(135deg,#11584e,#10383d 68%,#0e2d39)}.hero:before{content:"";position:absolute;right:-48px;top:-68px;width:190px;height:190px;border:1px solid #73fff51d;border-radius:50%;box-shadow:0 0 0 32px #73fff50a,0 0 0 70px #73fff506}.herohead{display:flex;gap:12px;align-items:center;position:relative}.hero-icon{border-radius:14px;background:#177569;display:grid;place-items:center;width:48px;height:48px;font-size:25px}.hero h2{font-size:19px;margin:0;letter-spacing:-.4px}.hero p{font-size:12px;color:#c0dcd7;margin:2px 0}.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #72e6d33a;background:#0b4641;border-radius:100px;padding:7px 11px;font-size:11px;font-weight:700;color:#b5ffe5;margin-top:14px}.pill.paused{color:#ffcfaa;background:#553c35;border-color:#f5ad7b66}.pill.off{color:#c6ced7;background:#304550;border-color:#668a9c66}.heroactions{display:flex;gap:9px;margin-top:13px}.heroactions button{background:#edfdf7;color:#083c36;border:none;border-radius:12px;padding:10px 14px;font-weight:800;min-height:40px}.heroactions button.alt{background:#185957;border:1px solid #4d9386;color:#ccfff3}.heroactions .select{background:#114743;border:1px solid #4e8b83;color:#d3fcf4;padding:10px 8px;border-radius:12px;min-height:40px;flex:1}.heroactions .select:disabled{opacity:.5}
+.sectionline{display:flex;align-items:center;justify-content:space-between;margin:24px 1px 10px}.sectionline h3{font-size:11px;text-transform:uppercase;letter-spacing:.15em;margin:0;color:#83dccf}.sectionline span{font-size:11px;color:#93acb6}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{padding:16px 14px;background:var(--panel);border:1px solid var(--border);border-radius:18px}.stat .value{font-size:25px;font-weight:820;letter-spacing:-1px;line-height:1.5}.stat .label{color:var(--muted);font-size:11px}.stat svg{width:22px;height:22px;color:var(--mint)}.tabs{display:flex;padding:4px;background:#122635;border:1px solid #284556;border-radius:13px;gap:4px;margin:22px 0 12px}.tabs button{flex:1;background:transparent;color:#9ab7c3;border:none;padding:11px;border-radius:10px;font-weight:750}.tabs button.active{background:#274c56;color:#e6fff7;box-shadow:0 2px 10px #05192480}.tab-panel[hidden]{display:none}
+.card{background:linear-gradient(155deg,var(--panel2),var(--panel));border:1px solid var(--border);padding:17px;border-radius:22px;margin-bottom:12px}.top{display:flex;align-items:center;gap:11px}.brand{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-weight:850;font-size:24px;color:#fff;background:#294653}.ig{background:linear-gradient(30deg,#fcaa44,#d64da1,#5d5be8)}.yt{background:#ec3d46}.tt{background:#091925;box-shadow:inset 0 0 0 1px #4f8190}.titlewrap{flex:1;min-width:0}.title{font-size:16px;font-weight:800;letter-spacing:-.15px}.status{font-size:11px;color:#adbcc8;margin-top:2px}.status.live{color:#6ef6bf}.status.blocked{color:var(--orange)}.switch{position:relative;display:block;width:51px;height:30px;flex-shrink:0}.switch input{position:absolute;opacity:0}.switch span{position:absolute;inset:0;background:#59717b;border-radius:60px;transition:background .2s}.switch span:after{content:"";position:absolute;width:24px;height:24px;border-radius:50%;background:#faffff;top:3px;left:3px;transition:transform .2s;box-shadow:0 3px 5px #0003}.switch input:checked+span{background:#35cdb7}.switch input:checked+span:after{transform:translateX(21px)}.info{display:flex;justify-content:space-between;margin-top:13px;font-size:11px;color:#a6bbc5}.progress{height:6px;border-radius:10px;background:#314e5f;overflow:hidden;margin-top:8px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#58d9c0,#3c9cea);width:0%;transition:width .25s}.field{margin-top:16px}.field label{display:flex;justify-content:space-between;font-size:12px;color:#b6c9d3}.field output{font-weight:800;color:#66e9d2}.field.penalty output{color:#ffb198}input[type=range]{width:100%;height:7px;accent-color:#42d6c5;margin:13px 0 0;cursor:pointer}.presets{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:8px}.presets span{font-size:11px;color:var(--muted);margin-right:auto}.presets button{border:1px solid #43616b;background:#213c4c;border-radius:9px;color:#dcebed;font-size:11px;padding:7px 10px;font-weight:750}.presets button.selected{border-color:#4de6cb;color:#5bf4dc;background:#1a4949}.cardactions{margin-top:15px;display:flex;gap:9px;align-items:center;justify-content:space-between}.test{background:#285b59;color:#dbfff8;border:1px solid #488a84;border-radius:11px;padding:9px 13px;font-size:12px;font-weight:750}.cardactions small{font-size:10px;color:#8faab6;text-align:right}
+.report{border:1px solid var(--border);background:var(--panel);border-radius:19px;padding:19px 17px}.report h4{margin:0 0 5px;font-size:16px}.report p{color:var(--muted);font-size:12px;margin:0 0 16px}.barrow{margin-bottom:18px}.barrow .numbers{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px}.barrow .numbers strong{font-weight:780}.empty{font-size:12px;color:#9fb3c0;padding:14px;border:1px dashed var(--border);border-radius:12px}
+.btn{border:none;border-radius:15px;width:100%;padding:15px;font-weight:800;color:white;background:linear-gradient(105deg,#1db6a1,#257ec9);margin-top:14px}.footer{font-size:11px;color:#95abb7;line-height:1.7;margin-top:20px}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#e5fff3;color:#113630;border-radius:12px;padding:11px 16px;box-shadow:0 8px 35px #0008;font-size:12px;font-weight:700;transition:all .25s}.toast.show{transform:translate(-50%,0);opacity:1}@media(max-width:380px){main{padding:19px 13px}.title{font-size:14px}.brand{width:36px;height:36px}.card{padding:13px}.heroactions{flex-wrap:wrap}}
+
+/* Premium feature panels */
+.feature{background:linear-gradient(145deg,#193342,#132734);border:1px solid var(--border);border-radius:20px;padding:18px;margin-bottom:12px}
+.feature h4{margin:0 0 5px;font-size:16px}.feature p{margin:0 0 12px;color:var(--muted);font-size:12px}
+.feature .inputline{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:11px 0}
+.feature .inputline>span{color:var(--muted);font-size:12px;flex:1}
+.segment{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.segment button{border:1px solid #396974;border-radius:11px;background:#214353;color:#e8f9f7;padding:10px 11px;font-weight:750;font-size:12px}
+.segment button.chosen{background:#24645d;border-color:#4de6cb;color:white}
+.num{color:var(--mint);font-weight:800}.soft{color:var(--muted);font-size:11px}.guide{border:1px dashed #355c68;border-radius:11px;padding:10px;margin-top:12px;color:#b0cbd0;font-size:11px}
+.meter{height:9px;border-radius:10px;background:#304d5b;overflow:hidden;margin:12px 0}.meter>span{display:block;height:100%;background:linear-gradient(90deg,#48e3bb,#3792e6)}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badges span{border:1px solid #3d6571;border-radius:12px;padding:9px 11px;color:#adc5cd;background:#1c3c48;font-size:11px}.badges span.ok{border-color:#4de6cb;color:#81ffe0}
+.daybar{display:grid;grid-template-columns:62px 1fr 58px;gap:9px;align-items:center;margin:10px 0;color:#bdd5da;font-size:11px}.daybar .bar{height:9px;background:#294754;border-radius:20px;overflow:hidden}.daybar .bar span{display:block;background:linear-gradient(90deg,#2fbdad,#398bc7);height:100%}
+.widgetpreview{background:linear-gradient(120deg,#104e4c,#173b56);padding:16px;border-radius:22px;border:1px solid #3c8f80;max-width:310px}.widgetpreview strong{display:block;font-size:29px}.widgetpreview small{color:#b5dcd6}
+.modal[hidden]{display:none}.modal{position:fixed;inset:0;background:#050e15d9;display:grid;place-items:center;padding:20px;z-index:20}.modalcard{width:min(100%,430px);background:#193541;border:1px solid #56d4bf;border-radius:25px;padding:23px;box-shadow:0 18px 65px #000b}.modalcard .clock{font-size:39px;font-weight:900;color:#ffbd9c;margin:9px 0}.modalcard h2{font-size:21px;margin:0}.modalcard p{color:#b3d4d3;font-size:13px}.modalcard .btn{margin-top:7px}.modalcard .btn.alt{background:#295463}.modalcard button:disabled{opacity:.45;cursor:not-allowed}
+label.option{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0;color:#d3eaec;font-size:12px}select{background:#153c4d;border:1px solid #477381;color:white;padding:10px;border-radius:10px;max-width:100%}
+.navhint{font-size:11px;margin-top:6px;color:#bbd7d5}
+.dailycap{border:1px solid #385965;border-radius:14px;background:#102c37;padding:12px;margin-top:14px}.dailycap strong{color:#95f2e3}.dailycap .segment{margin-top:8px}.dailycap .segment button{flex:1;padding:8px 5px}.dailycap .segment button.chosen{background:#216961;border-color:#6eead5}
+.toolrow{display:flex;gap:9px;flex-wrap:wrap}.toolrow>button{flex:1}.btn.danger{background:#803f54}.tip{padding:12px;border:1px solid #416377;background:#15333d;border-radius:13px;font-size:12px;color:#cfebed;margin-top:13px}
+</style>
+</head>
+<body><main>
+<div class="overline"><span class="dot"></span> AKIŞ KONTROLÜ · DİJİTAL DENGE</div>
+<header class="header"><div><h1>Akış<span>Fren</span></h1><p>Daha az kaydır, daha çok yaşa.</p></div><div class="logo" aria-label="AkışFren logosu">Ⅱ</div></header>
+<div class="preview-notice"><b>Tarayıcı demosu</b> · Butonlar ve sayaçlar çalışır; gerçek Instagram, YouTube veya TikTok'u engellemez. Bunun için Android uygulamasındaki erişilebilirlik izni gerekir.</div>
+<section class="hero"><div class="herohead"><div class="hero-icon">◉</div><div><h2 id="hero-title">Kontrol sende</h2><p id="hero-subtitle">Dört hedef, kişisel sınırların.</p></div></div><div class="pill" id="hero-pill">● Önizleme koruması etkin</div><div class="heroactions"><button id="pause-toggle">Korumayı duraklat</button><button id="resume-all" class="alt" style="display:none">Devam et</button></div><div id="pause-times" class="heroactions" style="display:none"><button class="select" data-minutes="15">15 dk</button><button class="select" data-minutes="30">30 dk</button><button class="select" data-minutes="60">60 dk</button></div></section>
+<div class="sectionline"><h3>Bugünün özeti</h3><span id="todaydate"></span></div>
+<div class="stats"><div class="stat"><div class="label">Takip edilen izleme</div><div class="value" id="total-use">0 sn</div><div class="label">Simülasyondaki toplam süre</div></div><div class="stat"><div class="label">Verilen molalar</div><div class="value" id="total-breaks">0</div><div class="label">Tamamlanan sınır sayısı</div></div></div>
+<nav class="tabs" aria-label="Uygulama bölümleri"><button type="button" class="active" data-tab="control" aria-selected="true">Kontrol</button><button type="button" data-tab="reports" aria-selected="false">İstatistikler</button><button type="button" data-tab="extras" aria-selected="false">Gelişmiş</button></nav>
+<section class="tab-panel" id="control"><div class="sectionline" style="margin-top:10px"><h3>Hedefler</h3><span>Her biri bağımsız çalışır</span></div><div id="cards"></div><button class="btn" id="reset-breaks">Molaları ve sayacı sıfırla</button></section>
+<section class="tab-panel" id="reports" hidden><div class="report"><h4>Bugün nasıl gidiyor?</h4><p>Takip edilen dört akışın izleme süreleri ve aralarındaki dağılım.</p><div id="report-bars"></div><h4>Son 7 gün</h4><div id="week-bars"></div><div id="week-compare" class="navhint"></div><button class="btn" id="share-report">Rapor metnini paylaş / kopyala</button><div class="empty">Günlük veriler bu tarayıcıda saklanır. Android uygulamasının gerçek kullanım verilerine erişmez.</div><button class="btn" id="reset-stats">Bugünkü demo istatistiklerini sıfırla</button><div class="tip"><b>Gizlilik:</b> Bu ekran yalnızca bu tarayıcının simülasyon verilerini gösterir. Android uygulamasından veri alamaz.</div></div></section>
+
+<section class="tab-panel" id="extras" hidden>
+  <div class="feature"><h4>Günlük kaydırma bütçesi</h4><p>Dört akışın toplam sınırı. Varsayılan kapalı; açınca test için de geçerli.</p>
+    <label class="option">Bütçeyi aç <input id="budget-on" type="checkbox"></label>
+    <div class="inputline"><span>Günlük hak</span><strong id="budget-value" class="num"></strong></div>
+    <input id="budget-range" type="range" min="5" max="120" step="5">
+    <div class="meter"><span id="budget-fill" style="width:0%"></span></div>
+    <label class="option">Tekrarlayan ihlalde artan mola (1×, 2×, 3×) <input id="escalate-on" type="checkbox"></label>
+    <label class="option">İzleme limitinin %80'inde nazik uyarı <input id="warn-on" type="checkbox"></label>
+  </div>
+  <div class="feature"><h4>Odak modları</h4><p>Ders modu kısa limit, uyku modu koruma, iş modu kontrollü kullanım sağlar.</p>
+    <div class="segment" id="mode-buttons"></div><div class="navhint" id="mode-value"></div>
+    <label class="option">Saatli modları aç <input id="schedule-on" type="checkbox"></label>
+    <div class="inputline"><span>Uyku başlama</span><select id="sleep-hour"></select><span>Ders başlama</span><select id="study-hour"></select></div>
+  </div>
+  <div class="feature"><h4>Bir amaç belirle</h4><p>Uygulamayı açmadan önce bilinçli bir seçim. Demo diğer uygulamaların ekranını okumaz.</p><div class="segment" id="reason-buttons"></div><div class="navhint" id="reason-value"></div><label class="option">Girişte neden açtığını sor <input type="checkbox" id="ask-on"></label></div>
+  <div class="feature"><h4>Seviye ve başarımlar</h4><div style="font-size:26px;font-weight:900" id="xp-total">Seviye 1</div><p id="xp-progress"></p><div class="meter"><span id="xp-fill" style="width:0%"></span></div><div class="badges" id="badge-list"></div></div>
+  <div class="feature"><h4>Odak oturumu · Zaman Bankası</h4><p>Odak süreni tamamlayıp kredini al; krediyi seçilen hedef için 5 dk istisnaya çevirebilirsin.</p>
+    <div class="num" id="focus-left" style="font-size:21px"></div><div id="bank-value" class="soft"></div>
+    <div class="segment"><button type="button" id="focus15">15 dk başlat</button><button type="button" id="focus25">25 dk başlat</button><button type="button" id="focus-cancel">İptal</button></div>
+    <button class="btn" id="focus-claim">Tamamla · Krediyi al</button>
+    <div class="guide">Önizlemede test etmek için oturum süresini bekleyebilir veya yalnızca simülasyon amaçlı "Test tamamla" seçeneğini kullanabilirsin.</div><button class="btn" style="background:#2a5261" id="focus-fast">Test tamamla (demo)</button>
+  </div>
+  <div class="feature"><h4>Acil geçiş ve istisna</h4><p>Bugün bir ücretsiz 5 dk hakkı; ayrıca Zaman Bankası'ndaki süre kullanılabilir.</p>
+    <div class="inputline"><span>Hedef</span><select id="exception-target"></select></div>
+    <div class="segment"><button id="emergency-use" type="button">Acil 5 dk</button><button id="bank-use" type="button">Bankadan 5 dk</button></div><div class="navhint" id="exception-note"></div>
+  </div>
+  <div class="feature"><h4>Ana ekran widget'ı</h4><p>Android proje dosyasında gerçek widget bulunur. Buradaki kutu onun önizlemesidir.</p>
+    <div class="widgetpreview"><small>AKIŞFREN · BUGÜN</small><strong id="widget-use">0 dk</strong><small id="widget-mode">Mod: Serbest</small><div><small id="widget-budget">Günlük bütçe kapalı</small></div></div>
+  </div>
+  <div class="feature"><h4>Akıllı öneriler</h4><p>Son 7 gündeki en yoğun kullanım saatinin yerel analizine göre.</p><div id="suggestion"></div></div>
+  <div class="feature"><h4>Veriler senin kontrolünde</h4><p>90 günlük simülasyon özetini CSV olarak indir veya tarayıcıda tutulan tüm AkışFren demo verilerini sil. Yalnızca bu tarayıcı etkilenir.</p>
+    <div class="toolrow"><button class="btn" id="export-csv" type="button">CSV olarak kaydet</button><button class="btn danger" id="erase-all" type="button">Tüm demo verilerini sil</button></div>
+    <div class="guide">Gerçek Android sürümünde de kullanıcı tarafından seçilen dosyaya CSV kaydedilir. Veri silme işleminden önce onay istenir.</div>
+  </div>
+</section>
+<p class="footer">AkışFren v0.4 önizlemesi. Gerçek Android sürümünde seçilen ekranlarda yerel süre takibi yapılır. Bu sürüm ekranlardaki metinleri kaydetmez ve ağ izni istemez. Ekran algılama uygulama güncellemelerinden etkilenebilir.</p>
+</main><div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="reason-dialog" role="dialog" aria-modal="true" aria-label="Neden açtın?" hidden><div class="modalcard">
+  <h2>Bu akışa neden girdin?</h2><p>İzlemeye başlamadan önce bir amaç belirleyebilirsin.</p><div class="segment" id="reason-popup-buttons"></div><button class="btn alt" id="reason-skip">Geç</button></div></div>
+<div class="modal" id="brake-dialog" role="dialog" aria-modal="true" aria-label="Akıllı Fren" hidden><div class="modalcard">
+    <div class="overline">AKIŞFREN · MOLA</div><h2>Akış burada duruyor.</h2><p id="brake-text">Kısa bir ara vermenin zamanı.</p>
+    <div class="clock" id="brake-left">0 sn</div><p>Biraz dinlen; istersen açıkça bir istisna kullanabilirsin.</p>
+    <button class="btn" id="brake-close">Tamam, mola vereceğim</button>
+    <button class="btn alt" id="brake-emergency">Acil 5 dakika</button>
+    <button class="btn alt" id="brake-bank">Bankadan 5 dakika</button>
+</div></div>
+<script>
+'use strict';
+const targets=[
+ {id:'reels',title:'Instagram Reels',icon:'◎',cls:'ig',limit:20,penalty:300},
+ {id:'feed',title:'Instagram Ana Akış',icon:'▤',cls:'ig',limit:20,penalty:300},
+ {id:'shorts',title:'YouTube Shorts',icon:'▶',cls:'yt',limit:60,penalty:60},
+ {id:'tiktok',title:'TikTok',icon:'♪',cls:'tt',limit:60,penalty:60}
+];
+const $=id=>document.getElementById(id);
+const oldKey='akisfren_webdemo_v1',key='akisfren_webdemo_v4',priorKey='akisfren_webdemo_v3';
+function todayKey(){const n=new Date;return [n.getFullYear(),String(n.getMonth()+1).padStart(2,'0'),String(n.getDate()).padStart(2,'0')].join('-')}
+let data={};try{data=JSON.parse(localStorage.getItem(key)||localStorage.getItem(priorKey)||localStorage.getItem(oldKey)||'{}')||{}}catch{data={}}
+for(const t of targets){data[t.id]={enabled:true,limit:t.limit,penalty:t.penalty,until:0,today:0,breaks:0,dailyOn:false,dailyMinutes:15,...data[t.id]};data[t.id].dailyMinutes=Math.max(5,Math.min(180,Number(data[t.id].dailyMinutes)||15));data[t.id].dailyOn=Boolean(data[t.id].dailyOn)}
+if(data.day!==todayKey()){data.day=todayKey();for(const t of targets){data[t.id].today=0;data[t.id].breaks=0}data.emergency=0}
+data.pauseUntil=Number(data.pauseUntil||0);
+let running=null,lastTick=Date.now(),activeTab='control';
+data.warn=data.warn!==false;data.budgetOn=Boolean(data.budgetOn||false);data.budget=Number(data.budget||30);data.escalate=Boolean(data.escalate||false);
+data.ask=Boolean(data.ask||false);data.mode=data.mode||'serbest';data.schedule=Boolean(data.schedule||false);data.sleepHour=Number.isInteger(data.sleepHour)?data.sleepHour:23;
+data.studyHour=Number.isInteger(data.studyHour)?data.studyHour:9;data.reason=data.reason||'Belirlenmedi';
+data.xp=Number(data.xp||0);data.completed=Number(data.completed||0);data.focusSessions=Number(data.focusSessions||0);
+data.bank=Number(data.bank||0);data.emergency=Number(data.emergency||0);data.focus=data.focus||null;
+data.history=data.history||{};data.hours=data.hours||{};data.completedDays=data.completedDays||{};
+let brakeTarget=null;
+for(const t of targets){if(data[t.id].rewardAt===undefined)data[t.id].rewardAt=0;if(data[t.id].exceptionUntil===undefined)data[t.id].exceptionUntil=0}
+
+function save(){localStorage.setItem(key,JSON.stringify(data))}
+function fmt(s){s=Math.max(0,Math.round(s));if(s<60)return `${s} sn`;if(s%60===0)return `${s/60} dk`;if(s<3600)return `${Math.floor(s/60)} dk ${s%60} sn`;return `${Math.floor(s/3600)} sa ${Math.floor(s%3600/60)} dk`}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showToast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>$('toast').classList.remove('show'),2500)}
+function overDaily(id){const p=data[id];return p.dailyOn&&p.today>=p.dailyMinutes*60}
+function brakeEnd(id){const p=data[id];if(!p)return 0;return ((data.budgetOn&&totalToday()>=data.budget*60)||overDaily(id))?endOfDay():p.until}
+function status(t){const p=data[t.id];if(!p.enabled)return ['○ Kapalı',''];if(data.pauseUntil>Date.now())return ['◷ Duraklatıldı','blocked'];if(p.exceptionUntil>Date.now())return [`◇ İstisna: ${fmt(Math.ceil((p.exceptionUntil-Date.now())/1000))}`,'live'];if(overDaily(t.id))return ['● Bu akışın günlük hakkı doldu','blocked'];if(data.budgetOn&&totalToday()>=data.budget*60)return ['● Toplam günlük bütçe doldu','blocked'];if(p.until>Date.now())return [`● Mola: ${fmt(Math.ceil((p.until-Date.now())/1000))}`,'blocked'];if(running?.id===t.id)return [`● İzleniyor: ${fmt(Math.floor((Date.now()-running.start)/1000))}`,'live'];return ['● Beklemede','']}
+$('cards').innerHTML=targets.map(t=>{const p=data[t.id];return `<article class="card" data-id="${t.id}"><div class="top"><div class="brand ${t.cls}" aria-hidden="true">${t.icon}</div><div class="titlewrap"><div class="title">${escapeHtml(t.title)}</div><div class="status" aria-live="polite">● Beklemede</div></div><label class="switch" title="${t.title} koruması"><input class="enabled" type="checkbox" aria-label="${t.title} koruması" ${p.enabled?'checked':''}><span></span></label></div><div class="info"><span class="today-use">Bugün: 0 sn</span><span class="session-progress">Oturum: %0</span></div><div class="progress"><span></span></div><div class="presets"><span>Hızlı limit</span><button type="button" data-set="20">20 sn</button><button type="button" data-set="60">1 dk</button><button type="button" data-set="180">3 dk</button></div><div class="field"><label>İzleme limiti <output class="limitout"></output></label><input class="limit" aria-label="${t.title} izleme limiti" type="range" min="5" max="300" step="5" value="${p.limit}"></div><div class="field penalty"><label>Mola süresi <output class="penaltyout"></output></label><input class="penalty" aria-label="${t.title} mola süresi" type="range" min="30" max="1800" step="30" value="${p.penalty}"></div><div class="dailycap"><div class="info"><strong>Bu akışın günlük hakkı</strong><span class="daily-summary">Kapalı</span></div><label class="option">Günlük sınırı etkinleştir <input type="checkbox" class="daily-on"></label><div class="segment"><button data-daily="5" type="button">5 dk</button><button data-daily="15" type="button">15 dk</button><button data-daily="30" type="button">30 dk</button><button data-daily="60" type="button">60 dk</button></div><div class="meter"><span class="daily-meter"></span></div></div><div class="cardactions"><button class="test" type="button">▶ Test et</button><small>Simülasyon: gerçek uygulamaları engellemez</small></div></article>`}).join('');
+for(const el of document.querySelectorAll('.card')){
+ const id=el.dataset.id,p=data[id];
+ el.querySelector('.enabled').addEventListener('change',e=>{p.enabled=e.target.checked;if(!p.enabled&&running?.id===id)running=null;save();paint()});
+ for(const type of ['limit','penalty'])el.querySelector(`input.${type}`).addEventListener('input',e=>{p[type]=+e.target.value;save();paint()});
+ el.querySelector('.daily-on').addEventListener('change',e=>{p.dailyOn=e.target.checked;save();paint()});
+ for(const btn of el.querySelectorAll('[data-daily]'))btn.addEventListener('click',()=>{p.dailyMinutes=Number(btn.dataset.daily);save();paint();showToast('Günlük hak güncellendi')});
+ for(const btn of el.querySelectorAll('[data-set]'))btn.addEventListener('click',()=>{p.limit=Number(btn.dataset.set);el.querySelector('.limit').value=p.limit;save();paint();showToast('İzleme limiti güncellendi')});
+ el.querySelector('.test').addEventListener('click',()=>{
+   if(!p.enabled){showToast('Önce bu hedefi etkinleştir');return}
+   if(data.pauseUntil>Date.now()){showToast('Koruma duraklatıldı');return}
+   if(((p.until>Date.now())||overDaily(id)||(data.budgetOn&&totalToday()>=data.budget*60))&&p.exceptionUntil<=Date.now()){brakeTarget=id;$('brake-dialog').hidden=false;paint();return}
+   if(running?.id===id){running=null;showToast('Test durduruldu')}else{running={id,start:Date.now(),accountedAt:Date.now(),warned:false};showToast(`${targets.find(t=>t.id===id).title} testi başladı`)}lastTick=Date.now();paint();
+   if(running?.id===id && data.ask) $('reason-dialog').hidden=false;
+ });
+}
+function paint(){
+ const now=Date.now(),isPaused=data.pauseUntil>now;
+ $('todaydate').textContent=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long'});
+ $('hero-title').textContent=isPaused?'Koruma duraklatıldı':'Kontrol sende';
+ $('hero-subtitle').textContent=isPaused?`Kalan: ${fmt(Math.ceil((data.pauseUntil-now)/1000))}`:'Dört akış için kendi kuralların.';
+ $('hero-pill').textContent=isPaused?'◷ Geçici mola aktif':'● Önizleme koruması etkin';
+ $('hero-pill').className='pill'+(isPaused?' paused':'');
+ $('pause-toggle').textContent=isPaused?'Korumaya devam et':'Korumayı duraklat';
+ $('total-use').textContent=fmt(targets.reduce((sum,t)=>sum+data[t.id].today,0));
+ $('total-breaks').textContent=targets.reduce((sum,t)=>sum+data[t.id].breaks,0);
+ for(const el of document.querySelectorAll('.card')){
+   const id=el.dataset.id,t=targets.find(t=>t.id===id),p=data[id],s=status(t),session=running?.id===id&&!isPaused?Math.floor((now-running.start)/1000):0;
+   el.querySelector('.status').textContent=s[0];el.querySelector('.status').className='status '+s[1];
+   el.querySelector('.today-use').textContent='Bugün: '+fmt(p.today);
+   el.querySelector('.daily-on').checked=p.dailyOn;
+   el.querySelector('.daily-summary').textContent=p.dailyOn?`${fmt(p.today)} / ${p.dailyMinutes} dk`:'Kapalı';
+   el.querySelector('.daily-meter').parentElement.style.display=p.dailyOn?'block':'none';
+   el.querySelector('.daily-meter').style.width=(p.dailyOn?Math.min(100,p.today/(p.dailyMinutes*60)*100):0)+'%';
+   for(const chip of el.querySelectorAll('[data-daily]'))chip.classList.toggle('chosen',p.dailyMinutes===Number(chip.dataset.daily));
+   let percent=Math.min(100,Math.round(session/p.limit*100));
+   el.querySelector('.session-progress').textContent=`Oturum: %${percent}`;
+   el.querySelector('.progress span').style.width=percent+'%';
+   el.querySelector('.limitout').textContent=fmt(p.limit);
+   el.querySelector('.penaltyout').textContent=fmt(p.penalty);
+   el.querySelector('.test').textContent=running?.id===id?'■ Testi durdur':'▶ Test et';
+   for(const chip of el.querySelectorAll('[data-set]'))chip.classList.toggle('selected',Number(chip.dataset.set)===p.limit);
+ }
+ const max=Math.max(1,...targets.map(t=>data[t.id].today));
+ $('report-bars').innerHTML=targets.map(t=>`<div class="barrow"><div class="numbers"><strong>${escapeHtml(t.title)}</strong><span>${fmt(data[t.id].today)} · ${data[t.id].breaks} mola</span></div><div class="progress"><span style="width:${100*data[t.id].today/max}%"></span></div></div>`).join('');
+ paintExtras();
+}
+function tick(){const now=Date.now();if(data.day!==todayKey()){data.day=todayKey();for(const t of targets){data[t.id].today=0;data[t.id].breaks=0}data.emergency=0;save()}
+ if(running){const p=data[running.id];if(!p.enabled||data.pauseUntil>now||((p.until>now||overDaily(running.id)||data.budgetOn&&totalToday()>=data.budget*60)&&p.exceptionUntil<=now))running=null;else{
+   // Count only elapsed foreground simulation time (avoid hidden-tab jumps).
+   const sec=Math.min(5,Math.floor(Math.max(0,now-running.accountedAt)/1000));
+   if(sec>0){p.today+=sec;running.accountedAt+=sec*1000;const day=todayKey();data.history[day]=Number(data.history[day]||0)+sec;const hour=String(new Date().getHours());data.hours[day]=data.hours[day]||{};data.hours[day][hour]=Number(data.hours[day][hour]||0)+sec;save()}
+   const effective=effectiveLimit(p.limit), budgetReached=(data.budgetOn&&totalToday()>=data.budget*60)||overDaily(running.id);
+   if(data.warn&&!running.warned&&effective>0&&now-running.start>=effective*800&&now-running.start<effective*1000){running.warned=true;showToast('Limitin %80’ine ulaştın · Son saniyelerin') }
+   if((now-running.start>=effective*1000||budgetReached)&&p.exceptionUntil<=now){
+     if(!budgetReached)p.until=now+Math.min(1800,p.penalty*(data.escalate?Math.min(3,p.breaks+1):1))*1000;
+     p.breaks++;if(!budgetReached)p.rewardAt=p.until;
+     brakeTarget=running.id;running=null;save();$('brake-dialog').hidden=false;showToast('Akıllı Fren: mola başladı')
+   }
+ }}for(const t of targets){const p=data[t.id];if(p.rewardAt&&now>=p.rewardAt){p.rewardAt=0;data.xp+=10;data.completed++;data.completedDays[todayKey()]=Number(data.completedDays[todayKey()]||0)+1;save()}}lastTick=now;paint()}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){running=null;showToast('Sekme gizlendiği için test durdu')}lastTick=Date.now();paint()});
+$('pause-toggle').addEventListener('click',()=>{if(data.pauseUntil>Date.now()){data.pauseUntil=0;save();$('pause-times').style.display='none';showToast('Koruma devam ediyor');paint()}else{$('pause-times').style.display=$('pause-times').style.display==='none'?'flex':'none'}});
+for(const b of document.querySelectorAll('[data-minutes]'))b.addEventListener('click',()=>{data.pauseUntil=Date.now()+Number(b.dataset.minutes)*60000;running=null;save();$('pause-times').style.display='none';showToast('Koruma geçici olarak duraklatıldı');paint()});
+$('reset-breaks').addEventListener('click',()=>{if(!confirm('Tüm molalar ve test oturumu sıfırlansın mı? Günlük veriler kalır.'))return;running=null;for(const t of targets)data[t.id].until=0;save();paint();showToast('Molalar sıfırlandı')});
+$('reset-stats').addEventListener('click',()=>{if(!confirm('Bugünkü demo istatistikleri silinsin mi?'))return;for(const t of targets){data[t.id].today=0;data[t.id].breaks=0}delete data.history[todayKey()];delete data.hours[todayKey()];save();paint();showToast('Günlük demo istatistikleri sıfırlandı')});
+for(const btn of document.querySelectorAll('[data-tab]'))btn.addEventListener('click',()=>{activeTab=btn.dataset.tab;for(const n of document.querySelectorAll('[data-tab]')){const active=n.dataset.tab===activeTab;n.classList.toggle('active',active);n.setAttribute('aria-selected',String(active))}for(const n of document.querySelectorAll('.tab-panel'))n.hidden=n.id!==activeTab;paint()});
+
+function endOfDay(){const n=new Date();n.setHours(24,0,0,0);return n.getTime()}
+function totalToday(){return targets.reduce((v,t)=>v+Number(data[t.id].today||0),0)}
+function modeNow(){const h=new Date().getHours();if(data.schedule){if(h>=data.sleepHour||h<7)return 'uyku';if(h>=data.studyHour&&h<data.studyHour+3)return 'ders'}return data.mode}
+function effectiveLimit(limit){const m=modeNow();return m==='uyku'?0:m==='ders'?Math.min(limit,20):m==='is'?Math.min(limit,60):limit}
+function targetName(id){return targets.find(t=>t.id===id)?.title||'Akış'}
+function weeklyStats(offset=0){let total=0;for(let d=offset;d<offset+7;d++){const day=new Date();day.setDate(day.getDate()-d);const key=[day.getFullYear(),String(day.getMonth()+1).padStart(2,'0'),String(day.getDate()).padStart(2,'0')].join('-');total+=Number(data.history[key]||0)}return total}
+function streak(){let score=0,n=new Date();if(!data.completedDays[todayKey()])n.setDate(n.getDate()-1);for(let i=0;i<90;i++){const day=[n.getFullYear(),String(n.getMonth()+1).padStart(2,'0'),String(n.getDate()).padStart(2,'0')].join('-');if(!data.completedDays[day])break;score++;n.setDate(n.getDate()-1)}return score}
+function grantException(id,bank){const p=data[id];if(!p)return false;if(bank){if(data.bank<300)return false;data.bank-=300}else{if(data.emergency>=1)return false;data.emergency++}p.exceptionUntil=Date.now()+300000;p.rewardAt=0;if(running)running=null;save();paint();return true}
+function printSuggestion(){const hours=Array(24).fill(0);for(let i=0;i<7;i++){const date=new Date();date.setDate(date.getDate()-i);const k=[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');for(const [hour,sec] of Object.entries(data.hours[k]||{}))hours[+hour]+=Number(sec)}const peak=Math.max(...hours);if(peak<600)return 'En az 10 dakika simülasyon verisi oluştuğunda yoğun kullanım saatin gösterilecek.';const hour=hours.indexOf(peak);return `Son 7 gün ${String(hour).padStart(2,'0')}.00–${String((hour+1)%24).padStart(2,'0')}.00 aralığında ${fmt(peak)} izleme var. Bu saatlere odak modu koyabilirsin.`}
+function paintExtras(){
+ $('warn-on').checked=data.warn;$('budget-on').checked=data.budgetOn;$('budget-range').value=data.budget;$('budget-value').textContent=`${fmt(data.budget*60)} · bugün ${fmt(totalToday())}`;$('budget-fill').style.width=Math.min(100,100*totalToday()/(data.budget*60))+'%';$('escalate-on').checked=data.escalate;
+ $('schedule-on').checked=data.schedule;$('sleep-hour').value=data.sleepHour;$('study-hour').value=data.studyHour;
+ $('mode-value').textContent=`Etkin mod: ${modeNow()} · zamanlama ${data.schedule?'açık':'kapalı'}`;
+ document.querySelectorAll('[data-mode]').forEach(el=>el.classList.toggle('chosen',el.dataset.mode===data.mode));
+ $('ask-on').checked=data.ask;$('reason-value').textContent=`Seçimin: ${data.reason}`;document.querySelectorAll('[data-reason]').forEach(el=>el.classList.toggle('chosen',el.dataset.reason===data.reason));
+ $('xp-total').textContent=`Seviye ${Math.floor(data.xp/100)+1} · ${data.xp} XP`;$('xp-progress').textContent=`Sonraki seviyeye ${100-data.xp%100} XP`;$('xp-fill').style.width=data.xp%100+'%';
+ const badges=[['İlk mola',data.completed>=1],['Odak ustası',data.focusSessions>=1],['3 günlük seri',streak()>=3]];$('badge-list').innerHTML=badges.map(([n,ok])=>`<span class="${ok?'ok':''}">${ok?'◆':'◇'} ${n}</span>`).join('');
+ $('focus-left').textContent=data.focus?`Odak kalan: ${fmt(Math.ceil(Math.max(0,data.focus.end-Date.now())/1000))}`:'Odak oturumu yok';$('bank-value').textContent=`Bankada ${fmt(data.bank)} · ${data.focusSessions} odak oturumu`;
+ $('focus-claim').disabled=!data.focus||Date.now()<data.focus.end;
+ $('exception-note').textContent=`Günlük acil hak: ${data.emergency?'Kullanıldı':'1 tane'} · banka: ${fmt(data.bank)}`;
+ $('week-bars').innerHTML=Array.from({length:7},(_,i)=>{const n=new Date();n.setDate(n.getDate()-6+i);const key=[n.getFullYear(),String(n.getMonth()+1).padStart(2,'0'),String(n.getDate()).padStart(2,'0')].join('-');const sec=Number(data.history[key]||0);const max=Math.max(1,...Object.values(data.history).map(Number));return `<div class="daybar"><span>${n.getDate()}/${n.getMonth()+1}</span><div class="bar"><span style="width:${100*sec/max}%"></span></div><span>${fmt(sec)}</span></div>`}).join('');
+ $('week-compare').textContent=`Son 7 gün: ${fmt(weeklyStats())} · Önceki 7 gün: ${fmt(weeklyStats(7))}. Önceki veri yoksa karşılaştırma güvenilir olmaz.`;
+ $('widget-use').textContent=fmt(totalToday());$('widget-mode').textContent=`Mod: ${modeNow()}`;$('widget-budget').textContent=data.budgetOn?`Günlük bütçe: ${fmt(data.budget*60)}`:'Günlük bütçe kapalı';$('suggestion').textContent=printSuggestion();
+ $('brake-text').textContent=brakeTarget?`${targetName(brakeTarget)} izleme sınırına ulaştı.`:'Mola başladı';$('brake-left').textContent=brakeTarget?fmt(Math.ceil(Math.max(0,brakeEnd(brakeTarget)-Date.now())/1000)):'0 sn';
+ $('brake-emergency').disabled=data.emergency>0;$('brake-bank').disabled=data.bank<300;
+}
+function setupExtras(){
+ $('mode-buttons').innerHTML=[['Ders','ders'],['Uyku','uyku'],['İş','is'],['Serbest','serbest']].map(([n,id])=>`<button type="button" data-mode="${id}">${n}</button>`).join('');
+ $('reason-buttons').innerHTML=['Mesaj','Video','Paylaşım'].map(v=>`<button type="button" data-reason="${v}">${v}</button>`).join('');
+ $('reason-popup-buttons').innerHTML=['Mesaj','Video','Paylaşım'].map(v=>`<button type="button" data-reason-popup="${v}">${v}</button>`).join('');
+ for(const selectId of ['sleep-hour','study-hour']){$(selectId).innerHTML=Array.from({length:selectId==='sleep-hour'?24:21},(_,i)=>`<option value="${i}">${String(i).padStart(2,'0')}.00</option>`).join('')}
+ $('exception-target').innerHTML=targets.map(t=>`<option value="${t.id}">${escapeHtml(t.title)}</option>`).join('');
+ $('warn-on').addEventListener('change',e=>{data.warn=e.target.checked;save();paint()});
+ $('budget-on').addEventListener('change',e=>{data.budgetOn=e.target.checked;save();paint()});
+ $('budget-range').addEventListener('input',e=>{data.budget=+e.target.value;save();paint()});
+ $('escalate-on').addEventListener('change',e=>{data.escalate=e.target.checked;save();paint()});
+ $('ask-on').addEventListener('change',e=>{data.ask=e.target.checked;save();paint()});
+ $('reason-skip').addEventListener('click',()=>{$('reason-dialog').hidden=true});
+ document.querySelectorAll('[data-reason-popup]').forEach(b=>b.addEventListener('click',()=>{data.reason=b.dataset.reasonPopup;save();paint();$('reason-dialog').hidden=true}));
+ $('schedule-on').addEventListener('change',e=>{data.schedule=e.target.checked;save();paint()});
+ for(const [name,key] of [['sleep-hour','sleepHour'],['study-hour','studyHour']])$(name).addEventListener('change',e=>{data[key]=+e.target.value;save();paint()});
+ document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{data.mode=b.dataset.mode;save();paint()}));
+ document.querySelectorAll('[data-reason]').forEach(b=>b.addEventListener('click',()=>{data.reason=b.dataset.reason;save();paint()}));
+ for(const mins of [15,25])$('focus'+mins).addEventListener('click',()=>{if(data.focus&&!confirm('Mevcut oturum yerine yenisi başlasın mı?'))return;data.focus={end:Date.now()+mins*60000,minutes:mins};save();paint();showToast('Odak başladı')});
+ $('focus-cancel').addEventListener('click',()=>{data.focus=null;save();paint()});
+ $('focus-fast').addEventListener('click',()=>{if(!data.focus){showToast('Önce odak başlat');return}data.focus.end=Date.now()-1000;save();paint();showToast('Demo: oturum süresi tamamlandı')});
+ $('focus-claim').addEventListener('click',()=>{if(!data.focus||Date.now()<data.focus.end)return;data.bank=Math.min(3600,data.bank+(data.focus.minutes>=25?300:180));data.xp+=15;data.focusSessions++;data.focus=null;save();paint();showToast('XP ve Zaman Bankası kredisi eklendi')});
+ $('emergency-use').addEventListener('click',()=>{showToast(grantException($('exception-target').value,false)?'5 dk acil istisna başladı':'Günlük hak bitti')});
+ $('bank-use').addEventListener('click',()=>{showToast(grantException($('exception-target').value,true)?'5 dk kredi kullanıldı':'Bankada yeterli süre yok')});
+ $('brake-close').addEventListener('click',()=>{$('brake-dialog').hidden=true;brakeTarget=null});
+ $('brake-emergency').addEventListener('click',()=>{if(grantException(brakeTarget,false)){$('brake-dialog').hidden=true;showToast('Acil 5 dk başladı')}});
+ $('brake-bank').addEventListener('click',()=>{if(grantException(brakeTarget,true)){$('brake-dialog').hidden=true;showToast('5 dk kredi kullanıldı')}});
+ $('export-csv').addEventListener('click',()=>{
+   const rows=['Tarih,Instagram Reels (sn),Instagram Ana Akış (sn),YouTube Shorts (sn),TikTok (sn),Toplam (sn),Mola sayısı'];
+   for(let d=89;d>=0;d--){const day=new Date();day.setDate(day.getDate()-d);const name=[day.getFullYear(),String(day.getMonth()+1).padStart(2,'0'),String(day.getDate()).padStart(2,'0')].join('-');const isToday=name===todayKey();const counts=targets.map(t=>isToday?data[t.id].today:0);const sum=Number(data.history[name]||counts.reduce((a,b)=>a+b,0));const breakCount=isToday?targets.reduce((n,t)=>n+data[t.id].breaks,0):'';rows.push([name,...(isToday?counts:['','','','']),sum,breakCount].join(','))}
+   const blob=new Blob(['\uFEFF'+rows.join('\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`akisfren_demo_90_gun_${todayKey()}.csv`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);showToast('Demo CSV dosyası oluşturuldu');
+ });
+ $('erase-all').addEventListener('click',()=>{if(!confirm('Tüm AkışFren demo ayarları ve geçmişi silinsin mi? Bu geri alınamaz.'))return;localStorage.removeItem(key);localStorage.removeItem(priorKey);localStorage.removeItem(oldKey);location.reload()});
+ $('share-report').addEventListener('click',()=>{const message=`AkışFren haftalık rapor\nSon 7 gün: ${fmt(weeklyStats())}\nÖnceki 7 gün: ${fmt(weeklyStats(7))}\nBugünkü molalar: ${targets.reduce((n,t)=>n+data[t.id].breaks,0)}\nBu rapor tarayıcı demosunun simülasyon verilerine dayanır.`;if(navigator.share){navigator.share({text:message}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(message).then(()=>showToast('Rapor kopyalandı'),()=>prompt('Rapor metnini kopyala:',message))}else prompt('Rapor metnini kopyala:',message)});
+}
+
+setupExtras();lastTick=Date.now();save();paint();setInterval(tick,1000);
+</script>
+</body></html>
