@@ -2,7 +2,7 @@
 
 **Daha az kaydır, daha çok yaşa.** Tamamen çevrimdışı çalışan, Android erişilebilirlik hizmetiyle *tanımlanabilen* Instagram Reels, Instagram ana akış, YouTube Shorts ve TikTok ekranlarında seçilen süre limitlerini uygulamayı deneyen bir açık kaynak Android proje taslağıdır.
 
-> **ÖNEMLİ:** Bu ZIP **APK değil**, Android kaynak projesidir. 0.4.0 kaynak dosyaları Java sözdizimi ve XML açısından kontrol edilmiş, 17 saf Java kullanım kuralı testi geçmiş ve web demosu Chromium üzerinden otomasyonla denenmiştir. Android APK **henüz derlenmedi** ve gerçek cihazda **test edilmedi**. İşlevler gerçek Instagram/YouTube sürümlerinde doğrulanmadan güvenilir engelleyici olarak kullanılmamalıdır.
+> **DURUM (16 Ekim 2026):** Android debug APK, GitHub Actions üzerinde `testDebugUnitTest assembleDebug` ile **başarıyla derlendi ve otomatik testler geçti**. [Başarılı derlemeden APK'yı indir](https://github.com/furkansel-ops/AkisFren/actions/runs/38950580130) (Artifacts → AkisFren-debug-apk). Uygulama **gerçek Android cihazda henüz test edilmedi**; Instagram, YouTube ve TikTok üzerinde doğrulanmadan güvenilir bir engelleyici olarak kullanılmamalıdır. Bu repo kaynak koddur; Actions çıktısı debug APK'dır, Google Play yayını değildir.
 
 ## v0.4 yenilikleri
 
@@ -17,7 +17,7 @@
 - Saf Java UsagePolicy kontrolleri: **17/17 geçti** (mola üst sınırı, varsayılan kapalı bütçeler, %80 sınırı, uyku/ders modları).
 - Java kaynaklarının `javac` parse kontrolü: **8 kaynak, 0 sözdizimi hatası**. XML kaynakları da ayrıştırıldı.
 - Etkileşimli demo: Chromium otomasyonunda 4 hedef, günlük limit açma/kapatma, limit dolumu, %80 uyarısı, CSV ve tam silme akışında tarayıcı hatası gözlenmedi.
-- **Tam Gradle APK derlemesi ve gerçek cihaz testi yapılmadı.** Erişilebilirlik servisinin üretici, Android sürümü ve Instagram/YouTube/TikTok güncellemelerine göre davranışı değişebilir.
+- **GitHub Actions Gradle derlemesi ve testler geçti.** Gerçek cihaz testi **yapılmadı**. Erişilebilirlik servisinin üretici, Android sürümü ve Instagram/YouTube/TikTok güncellemelerine göre davranışı değişebilir.
 
 ## Özellikler ve uygulanma durumları
 
@@ -54,14 +54,14 @@
 ## APK'ya dönüştürme
 
 ### Yöntem 1 — GitHub Actions
-1. Bu proje klasörünün **içindeki tüm dosyaları**, `.github/workflows/android-apk.yml` dahil, yeni bir **private** GitHub deposuna yükle.
+1. Bu depo Android kaynaklarını ve `.github/workflows/android-apk.yml` derleme otomasyonunu içeriyor.
 2. GitHub > Actions > **Build AkışFren APK** > Run workflow. Ya da `main` veya `master` dalına gönder.
 3. Başarılı olursa **AkisFren-debug-apk** adlı çıktıdan `app-debug.apk` dosyasını indir.
 4. APK'yı güvenilir cihazda test et ve izin açıklamasını oku. Bu debug APK **Google Play yayın paketi değildir**.
 
 ### Yöntem 2 — Android Studio
 - JDK 17, Android SDK Platform 35, Gradle 8.11.1 gereklidir (AGP 8.9.2).
-- Kaynak klasörünü Android Studio ile aç. Bu ZIP'te Gradle wrapper JAR bulunmadığından Android Studio'nun kullandığı Gradle kurulumunu seçebilir veya GitHub Actions yolunu kullanabilirsin.
+- Kaynak klasörünü Android Studio ile aç. Bu projede Gradle wrapper JAR bulunmadığından Android Studio'nun kullandığı Gradle kurulumunu seçebilir veya GitHub Actions yolunu kullanabilirsin.
 - Önce `testDebugUnitTest`, sonra `assembleDebug` görevlerini çalıştır.
 
 ### Telefonda kontrol listesi
